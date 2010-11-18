@@ -1,19 +1,56 @@
 = vidibus-tempfile
 
-Description goes here.
+The extended Temfile class allows temporary files with correct mime type and file extension. This is useful for processing temporary files. Parts of the Tempfile extensions were copied from Paperclip. Thank you!
 
-== Contributing to vidibus-tempfile
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+This gem is part of the open source SOA framework Vidibus: http://vidibus.org
+
+
+== Installation
+
+Add the dependency to the Gemfile of your application:
+
+  gem "vidibus-tempfile"
+
+Then call `bundle install` on your console.
+
+
+== Usage
+
+This is an example for extracting image stills from a video through a Tempfile:
+
+  # Extract video still using FFmpeg
+  def extract_image(video, seconds = 10)
+    basename = File.basename(video).gsub(/\.\w+$/,'')
+    tmpfile = Vidibus::Tempfile.new("#{basename}.jpg")
+    tmpfile.binmode
+    cmd = %(ffmpeg -itsoffset -#{seconds} -i "#{video}" -y -vcodec mjpeg -qscale 1 -vframes 1 -an -f rawvideo #{File.expand_path(tmpfile.path)} 2>/dev/null)
+    `#{cmd}`
+    tmp
+  end
+
+The next example shows how to assign an image by setting its path:
+
+  class Image
+    include Mongoid::Document
+    include Paperclip
+
+    field :image_file_name
+    field :image_content_type
+    field :image_file_size, :type => Integer
+
+    has_attached_file :image
+
+    def image=(path)
+      self.write_attribute(:image, Vidibus::Tempfile.new(path))
+    end
+  end
+
+
+== TODO
+
+  * Write specs
+
 
 == Copyright
 
-Copyright (c) 2010 Andre Pankratz. See LICENSE.txt for
-further details.
-
+Copyright (c) 2010 Andre Pankratz. See LICENSE.txt for further details.
