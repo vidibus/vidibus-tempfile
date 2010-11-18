@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/vidibus-tempfile.rb",
-    "lib/vidibus/tempfile.rb"
+    "lib/vidibus/tempfile.rb",
+    "vidibus-tempfile.gemspec"
   ]
   s.homepage = %q{http://github.com/vidibus/vidibus-tempfile}
   s.require_paths = ["lib"]
