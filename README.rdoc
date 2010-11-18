@@ -48,7 +48,7 @@ The next example shows how to assign an image by setting its path:
 
 == TODO
 
-  * Write specs
+* Write specs
 
 
 == Copyright
