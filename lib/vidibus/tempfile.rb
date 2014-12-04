@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module Vidibus
   class Tempfile < ::Tempfile
     VERSION = '0.0.1'
