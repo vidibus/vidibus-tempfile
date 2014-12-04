@@ -1,21 +1,16 @@
-require "rubygems"
-require "rake"
-require "rake/rdoctask"
-require "rspec"
-require "rspec/core/rake_task"
+$:.unshift File.expand_path('../lib/', __FILE__)
 
-begin
-  require "jeweler"
-  Jeweler::Tasks.new do |gem|
-    gem.name = "vidibus-tempfile"
-    gem.summary = %Q{Provides extended Tempfile}
-    gem.description = %Q{Adds mime type and file extension to Tempfile.}
-    gem.email = "andre@vidibus.com"
-    gem.homepage = "http://github.com/vidibus/vidibus-tempfile"
-    gem.authors = ["Andre Pankratz"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'bundler'
+require 'rdoc/task'
+require 'rspec'
+require 'rspec/core/rake_task'
+
+Bundler::GemHelper.install_tasks
+
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = 'Vidibus::Tempfile'
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.options << '--charset=utf-8'
 end

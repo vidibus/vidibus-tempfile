@@ -1,1 +1,1 @@
-require "vidibus/tempfile"
+require 'vidibus/tempfile'

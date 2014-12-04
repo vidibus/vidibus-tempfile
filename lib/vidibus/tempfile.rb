@@ -1,5 +1,7 @@
 module Vidibus
   class Tempfile < ::Tempfile
+    VERSION = '0.0.1'
+
     def initialize(path, tmpdir = Dir::tmpdir)
       @original_filename = File.basename(path)
       @path = path
